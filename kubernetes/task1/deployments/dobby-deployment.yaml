@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dobby-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dobby-app
+  template:
+    metadata: 
+     labels:
+      app: dobby-app
+    spec:
+      containers:
+      - name: dobby
+        image: thecasualcoder/dobby
+        ports:
+          - containerPort: 4444
