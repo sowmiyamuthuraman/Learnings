@@ -25,4 +25,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run a one-line script
       if: github.ref == 'refs/heads/$default-branch'
-      run: echo Hello, world!
+      run: echo $default-branch
