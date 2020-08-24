@@ -42,11 +42,12 @@ yes
 ip | CHANGED | rc=0 >>
 app2.test
 ```
-Each time we run this command, we get the results in different order
-This is bcoz ansible forks itself and run command parallely.
+Each time we run this command, we get the results in different order bcoz ansible forks itself and run command parallely.
+
 To avoid this behaviour `-f` flag can be used
 
 `-f (fork flag)` makes the task to occur synchronously
+
 ```ruby
     ansible common -i inventory -a "hostname" -f 1
 ```  
