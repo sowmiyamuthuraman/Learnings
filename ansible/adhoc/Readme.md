@@ -46,6 +46,8 @@ Each time we run this command, we get the results in different order bcoz ansibl
 
 To avoid this behaviour `-f` flag can be used
 
+By default ansible runs commands using `5 forks`
+
 `-f (fork flag)` makes the task to occur synchronously
 
 ```ruby
@@ -56,6 +58,14 @@ To avoid this behaviour `-f` flag can be used
 4. `--limit` - can be used to perform an action on specific server in the grp
 ```ruby
    ansible -i inventory common -m ping --limit "<comma_separated_server_ips>" 
+```
+5.`-B <time_in_seconds>` - Runs the task in background and ansible kills the job if the given time limit exceeded
+```ruby
+    ansible -b -i inventory common -B 3600 -a 'yum -y update'
+```
+   ansible gives back job id in each server, which we can use to check the status of the job using  `async_status` module
+```ruby
+   ansible -b -i inventory common -m "async_status" -a "jid=<job_id>"
 ```
 
 `setup` module in ansible gives the info about the VM that ansible can see.
@@ -74,4 +84,10 @@ To avoid this behaviour `-f` flag can be used
 Gives the info about the ansible modules
 ```ruby
     ansible-doc service
+```
+
+#### Logs
+To get the logs from the servers in the grp
+```ruby
+    ansible -i inventory common -b -a "tail /var/log/messages"
 ```
