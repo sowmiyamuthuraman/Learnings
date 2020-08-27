@@ -1,0 +1,6 @@
+[app]
+192.168.60.4
+
+[app:vars]
+ansible_ssh_user=vagrant
+ansible_ssh_private_key_file=~/Documents/oss/Learnings/ansible/playbook/.vagrant/machines/App1/virtualbox/private_key

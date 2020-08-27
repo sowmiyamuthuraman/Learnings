@@ -1,0 +1,37 @@
+---
+- name: Install Apache.
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install Apache.
+      command: yum install --quiet -y httpd httpd-devel
+    - name: Install Apache using yum module.
+      yum:
+        name:
+          - httpd
+          - httpd-devel
+        state: present
+    - name: Copy configuration files
+      command: cp httpd.config /etc/httpd/conf/httpd.conf
+    - command: cp httpd-vhosts /etc/httpd/conf/httpd-vhosts.conf
+    - name: Copy configuration files using copy module
+      copy:
+          src: "{{item['src']}}"
+          dest: "{{item['dest']}}"
+          owner: root
+          group: root
+          mode: 0644
+      with_items:
+          - src: httpd.conf
+            dest: /etc/httpd/conf/httpd.conf
+          - src: httpd-vhosts
+            dest: /etc/httpd/conf/httpd-vhosts.conf
+    - name: Start Apache and configure it to run at book
+      command: service httpd start
+    - command: chkconfig httpd on
+    - name: Ensure Apache is started using service module
+      service:
+        name: httpd
+        state: started
+        enabled: true
