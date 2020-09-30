@@ -19,4 +19,14 @@
    ```ruby
       COPY --from=nginx
    ```
+   
+   ## Best practices
+   
+   - Keep images small
+      - choose appropriate base image
+      - use multi stage builds
+   - tag images with information that can be used while deploying application in different envs. Donot rely on the default tag latest
+   - use volumes to store application data
+   - use secrets for sensitive information and configs for non-sensitive information using config files
+      
   
